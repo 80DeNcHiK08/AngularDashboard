@@ -6,7 +6,6 @@
             <div class="col-md-3">{{ sticker.CreationDate }}</div>
             <div class="col-md-3">{{ sticker.ChangeDate }}</div>
             <div class="col-md-3">{{ sticker.IsComplete }}</div>
-            <!--div class="col-md-3">{{ 50 | percentage }}</div-->
             <div class="col-md-3">
                 <button type="button" (click)="update(sticker.Id)" class="btn btn-default">Edit</button>
                 <button type="button" (click)="delete(sticker.Id)" class="btn btn-default">Delete</button>
@@ -14,4 +13,3 @@
         </div>
     </div>
     <button type="button" (click)="add()" class="btn btn-primary">Add</button>
-</div>

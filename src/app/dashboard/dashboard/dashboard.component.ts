@@ -3,8 +3,8 @@ import { DashboardService } from "../services/dashboard.service";
 
 @Component({
     selector: 'app-todo-form',
-    templateUrl: './dashboard.cmponent.html',
-    // providers: [DashboardService]
+    templateUrl: './dashboard.component.html',
+    //providers: [DashboardService]
 })
 export class DashboardComponent implements OnInit {
     public messages: string[];
