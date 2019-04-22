@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { StickerListComponent } from './components/sticker_list/sticker_list.component';
-import { StickerCreateComponent } from './components/sticker_create/sticker_create.component';
-import { StickerEditComponent } from './components/sticker_edit/sticker_edit.component';
+import { StickerListComponent } from './components/sticker-list/sticker-list.component';
+import { StickerCreateComponent } from './components/sticker-create/sticker-create.component';
+import { StickerEditComponent } from './components/sticker-edit/sticker-edit.component';
+
 import { AuthGuard } from '../core/guards/auth.guard';
-import { StickerResolveService } from './services/sticker_resolve.service';
+import { StickerResolveService } from './services/sticker-resolve.service';
 
 const routes: Routes = [
     {
@@ -20,12 +21,12 @@ const routes: Routes = [
     {
         path: ':stickerId',
         component: StickerEditComponent,
-        resolve: { todo: StickerResolveService }
+        resolve: { sticker: StickerResolveService }
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class StickerRoutingModule { }

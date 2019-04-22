@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Sticker } from "../models/sticker";
+import { Sticker } from "../models/sticker.model";
 
 @Injectable()
 export class StickerService {
@@ -8,6 +8,8 @@ export class StickerService {
 
     constructor() {
         let collection: Sticker[] = [];
+        collection.push({ Id: 0, Name: 'Welcome', Body: "Note all your awesome ideas!", CreationDate: new Date(), ChangeDate: null, IsComplete: false });
+        this.key = 1;
         localStorage.setItem(this.collection_name, JSON.stringify(collection));
     }
 
@@ -18,21 +20,21 @@ export class StickerService {
     getAll(): Sticker[] {
         return JSON.parse(localStorage.getItem(this.collection_name));
     }
-
-    create(sticker: Sticker): number {
+    
+    add(sticker: Sticker): number {
         let collection = JSON.parse(localStorage.getItem(this.collection_name));
-        sticker.id = this.key++;
+        sticker.Id = this.key++;
         collection.push(sticker);
         localStorage.setItem(this.collection_name, JSON.stringify(collection));
-        return sticker.id;
+        return sticker.Id;
     }
-
+    
     update(sticker: Sticker) {
         let collection = JSON.parse(localStorage.getItem(this.collection_name));
-        collection[sticker.id] = sticker;
+        collection[sticker.Id] = sticker;
         localStorage.setItem(this.collection_name, JSON.stringify(collection));
     }
-
+    
     delete(id: number): void {
         let collection = JSON.parse(localStorage.getItem(this.collection_name));
         collection.splice(collection.findIndex(item => item.Id === id), 1);

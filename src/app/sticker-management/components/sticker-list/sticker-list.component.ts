@@ -1,28 +1,24 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Sticker } from "../../models/sticker";
-import { StickerService } from "../../services/stickerservice";
+import { Sticker } from "../../models/sticker.model";
+import { StickerService } from "../../services/sticker.service";
 
 @Component({
-    selector: 'app-todo-list',
-    templateUrl: './todo-list.component.html',
-    styles: [`
-        .test-class { background-color: #ff9e9e; }
-    `]
+    selector: 'app-sticker-list',
+    templateUrl: './sticker-list.component.html',
 })
-
 export class StickerListComponent implements OnInit {
     private list: Sticker[];
     private today: Date = new Date();
+    private todayCondition: boolean = false;
 
-    constructor(private router: Router, private stickerService: StickerService) 
-    {   }
+    constructor(private router: Router, private stickerService: StickerService) {}
 
     ngOnInit() {
         this.list = this.stickerService.getAll();
     }
 
-    edit(id: number) {
+    update(id: number) {
         this.router.navigate([`/sticker/${id}`]);
     }
 
@@ -32,6 +28,6 @@ export class StickerListComponent implements OnInit {
 
     delete(id: number) {
         this.stickerService.delete(id);
-        this.list.splice(this.list.findIndex(item => item.id === id), 1);
+        this.list.splice(this.list.findIndex(item => item.Id === id), 1);
     }
 }

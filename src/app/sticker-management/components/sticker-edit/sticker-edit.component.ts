@@ -1,17 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Sticker } from "../../models/sticker";
-import { StickerService } from "../../services/stickerservice";
+import { Sticker } from "../../models/sticker.model";
+import { StickerService } from "../../services/sticker.service";
 
 @Component({
-    selector: 'app-todo-edit',
-    templateUrl: './todo-edit.component.html'
+    selector: 'app-sticker-edit',
+    templateUrl: './sticker-edit.component.html'
 })
 export class StickerEditComponent implements OnInit {
     private sticker: Sticker;
 
-    constructor(private router: Router, private route: ActivatedRoute, private stickerService: StickerService)
-    {   }
+    constructor(private router: Router, private route: ActivatedRoute, private stickerService: StickerService) {}
 
     ngOnInit() {
         this.sticker = this.route.snapshot.data['sticker'];
