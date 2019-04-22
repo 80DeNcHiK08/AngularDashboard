@@ -1,45 +1,52 @@
-import { Injectable } from "@angular/core";
-import { Sticker } from "../models/sticker.model";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-@Injectable()
+import { Observable, of } from 'rxjs';
+
+import { Sticker } from '../models/sticker';
+
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+@Injectable({
+    providedIn: 'root'
+})
 export class StickerService {
-    private key: number = 0;
-    private collection_name: string = 'StickerList';
+    private stickersUrl = 'api/stickers';
 
-    constructor() {
-        let collection: Sticker[] = [];
-        collection.push({ Id: 0, Name: 'Welcome', Body: "Note all your awesome ideas!", CreationDate: new Date(), ChangeDate: null, IsComplete: false });
-        this.key = 1;
-        localStorage.setItem(this.collection_name, JSON.stringify(collection));
+    constructor(private http: HttpClient) { }
+
+    getAll(): Observable<Sticker[]> {
+        return this.http.get<Sticker[]>(this.stickersUrl);
     }
 
-    get(id: number): Sticker {
-        return JSON.parse(localStorage.getItem(this.collection_name))[id];
+    get(id: number): Observable<Sticker> {
+        const url = `${this.stickersUrl}/${id}`;
+        return this.http.get<Sticker>(url);
     }
 
-    getAll(): Sticker[] {
-        return JSON.parse(localStorage.getItem(this.collection_name));
+    update(sticker: Sticker): Observable<any> {
+        sticker.lastModificationDate = new Date().toString();
+        return this.http.put(this.stickersUrl, sticker, httpOptions);
     }
-    
-    add(sticker: Sticker): number {
-        let collection = JSON.parse(localStorage.getItem(this.collection_name));
-        sticker.Id = this.key++;
-        sticker.CreationDate = new Date();
-        collection.push(sticker);
-        localStorage.setItem(this.collection_name, JSON.stringify(collection));
-        return sticker.Id;
+
+    add(sticker: Sticker): Observable<Sticker> {
+        sticker.creationDate = new Date().toString();
+        sticker.lastModificationDate = new Date().toString();
+        return this.http.post<Sticker>(this.stickersUrl, sticker, httpOptions);
     }
-    
-    update(sticker: Sticker) {
-        let collection = JSON.parse(localStorage.getItem(this.collection_name));
-        sticker.ChangeDate = new Date();
-        collection[sticker.Id] = sticker;
-        localStorage.setItem(this.collection_name, JSON.stringify(collection));
+
+    delete(sticker: Sticker | number): Observable<Sticker> {
+        const id = typeof sticker === 'number' ? sticker : sticker.id;
+        const url = `${this.stickersUrl}/${id}`;
+        return this.http.delete<Sticker>(url, httpOptions);
     }
-    
-    delete(id: number): void {
-        let collection = JSON.parse(localStorage.getItem(this.collection_name));
-        collection.splice(collection.findIndex(item => item.Id === id), 1);
-        localStorage.setItem(this.collection_name, JSON.stringify(collection));
+
+    search(term: string): Observable<Sticker[]> {
+        if (!term.trim()) {
+            return of([]);
+        }
+        return this.http.get<Sticker[]>(`${this.stickersUrl}/?text=${term}`);
     }
 }

@@ -1,17 +1,19 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'sticker',
-    pathMatch: 'full'
-  },
-  {
-    path: 'sticker',
-    loadChildren: './sticker-management/sticker.module#StickerModule'
-  },
-  {
-    path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardModule'
-  }
+import { StickersComponent } from './sticker-management/sticker-list/stickers-list.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { StickerInfoComponent } from './sticker-management/sticker-info/sticker-info.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: DashboardComponent },
+  { path: 'info/:id', component: StickerInfoComponent },
+  { path: 'stickers', component: StickersComponent }
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

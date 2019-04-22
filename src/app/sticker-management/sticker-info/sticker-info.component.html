@@ -1,0 +1,14 @@
+<div *ngIf="sticker">
+  <div><span>StickerId: </span>{{sticker.id}}</div>
+  <div><span>Name: </span>{{sticker.Name}}</div>
+  <div><span>Text: </span>{{sticker.Body}}</div>
+  <div><span>Creation date: </span>{{sticker.creationDate | date:"dd/MM/yy HH:mm:ss"}}</div>
+  <div><span>Last modified at: </span>{{sticker.lastModificationDate | date:"dd/MM/yy HH:mm:ss"}}</div>
+  <div>
+    <label>Body:
+      <input [(ngModel)]="sticker.Body" placeholder="NewSticker"/>
+    </label>
+  </div>
+  <button (click)="goBack()">Back</button>
+  <button (click)="save()">Save</button>
+</div>

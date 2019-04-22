@@ -1,1 +1,9 @@
+<nav class="header">
+    <li>
+    <a routerLink="/home">Home</a>
+    <a routerLink="/stickers">Stickers</a>
+    </li>
+    <app-sticker-search></app-sticker-search>
+    <div class="date">{{date | date:"dd/MM/yy HH:mm:ss"}}</div>
+</nav>
 <router-outlet></router-outlet>

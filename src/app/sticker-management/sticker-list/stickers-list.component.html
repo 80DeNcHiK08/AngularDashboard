@@ -1,0 +1,20 @@
+<h2>My Stickers</h2>
+<ul class="stickers">
+  <li *ngFor="let sticker of stickers">
+    <a routerLink="/info/{{sticker.id}}">
+      <span class="badge">{{sticker.Name}}</span>
+      <span class="badge">{{sticker.Body}}</span>
+    </a>
+    <button type="button" class="btn btn-default" title="delete sticker" (click)="delete(sticker)">Delete</button>
+  </li>
+</ul>
+
+<div>
+  <label>Sticker label:
+    <input #stickerName />
+  </label>
+  <label>Sticker text:
+    <input #stickerBody />
+  </label>
+  <button type="button" class="btn btn-default" (click)="add(stickerName.value, stickerBody.value); stickerName.value=''; stickerBody.value=''">Add</button>
+</div>

@@ -1,0 +1,8 @@
+<div class="grid grid-pad container">
+  <a *ngFor="let sticker of stickers" class="col-1-4" routerLink="/info/{{sticker.id}}">
+    <div class="module sticker">
+      <h3 class="noteCaption">{{sticker.Name}}</h3>
+      <p >{{sticker.Body}}</p>
+    </div>
+  </a>
+</div>
