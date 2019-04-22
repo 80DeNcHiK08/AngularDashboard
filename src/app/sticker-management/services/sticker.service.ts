@@ -24,6 +24,7 @@ export class StickerService {
     add(sticker: Sticker): number {
         let collection = JSON.parse(localStorage.getItem(this.collection_name));
         sticker.Id = this.key++;
+        sticker.CreationDate = new Date();
         collection.push(sticker);
         localStorage.setItem(this.collection_name, JSON.stringify(collection));
         return sticker.Id;
@@ -31,6 +32,7 @@ export class StickerService {
     
     update(sticker: Sticker) {
         let collection = JSON.parse(localStorage.getItem(this.collection_name));
+        sticker.ChangeDate = new Date();
         collection[sticker.Id] = sticker;
         localStorage.setItem(this.collection_name, JSON.stringify(collection));
     }

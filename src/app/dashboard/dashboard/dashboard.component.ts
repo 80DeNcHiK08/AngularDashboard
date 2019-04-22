@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { DashboardService } from "../services/dashboard.service";
 
 @Component({
-    selector: 'app-todo-form',
+    selector: 'app-sticker-form',
     templateUrl: './dashboard.component.html',
     //providers: [DashboardService]
 })
